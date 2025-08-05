@@ -29,7 +29,7 @@ export function BrandCard({
 				type: 'spring',
 				stiffness: 100,
 			}}
-			className={`relative group cursor-pointer ${
+			className={`relative group   cursor-pointer ${
 				brand.featured ? 'md:col-span-1 lg:col-span-1' : ''
 			}`}
 			onMouseEnter={() => onHover(brand.name)}
@@ -37,7 +37,7 @@ export function BrandCard({
 		>
 			{/* Glow effect */}
 			<motion.div
-				className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${brand.color} blur-xl`}
+				className={`absolute inset-0 rounded-2xl bg-[#1E1E1E] blur-xl`}
 				initial={{ opacity: 0, scale: 0.8 }}
 				animate={{
 					opacity: isHovered ? 0.6 : 0,
@@ -48,7 +48,7 @@ export function BrandCard({
 
 			<motion.div
 				className={`
-    relative bg-gray-900/60 backdrop-blur-xl border border-gray-800 rounded-2xl p-8 
+    relative bg-[#1E1E1E]  border border-[#1E1E1E] rounded-2xl p-8 
     transition-all duration-500 overflow-hidden
     ${brand.featured ? 'ring-2 ring-yellow-400/30' : ''}
     flex items-center justify-center min-h-[140px]
@@ -58,9 +58,6 @@ export function BrandCard({
 					borderColor: isHovered
 						? brand.accent.split('-')[1] + '-400'
 						: 'rgb(31 41 55)',
-					backgroundColor: isHovered
-						? 'rgba(17, 24, 39, 0.8)'
-						: 'rgba(17, 24, 39, 0.6)',
 				}}
 				transition={{
 					duration: 0.4,
@@ -75,7 +72,7 @@ export function BrandCard({
 			>
 				{/* Shine effect */}
 				<motion.div
-					className='absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12'
+					className='absolute inset-0 from-transparent bg-[#1E1E1E] to-transparent -skew-x-12'
 					initial={{ x: '-100%' }}
 					animate={{
 						x: isHovered ? '100%' : '-100%',
