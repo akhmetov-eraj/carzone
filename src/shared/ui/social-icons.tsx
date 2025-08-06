@@ -1,7 +1,7 @@
 "use client"
 
+import { SocialIcon } from '@/widgets/sections/brands-section/data'
 import { motion } from "framer-motion"
-import type { SocialIcon } from "@/types"
 
 interface SocialIconsProps {
   icons: SocialIcon[]

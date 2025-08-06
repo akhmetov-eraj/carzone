@@ -1,8 +1,9 @@
 "use client"
 
+import { CarData } from '@/entities/cars/types/car'
+import { ModalType } from '@/entities/modal/types/modal'
 import { useState, useCallback } from "react"
-import type { ModalType } from "@/types/modal"
-import type { CarData } from "@/types/car"
+
 
 export function useModal() {
   const [activeModal, setActiveModal] = useState<ModalType>(null)

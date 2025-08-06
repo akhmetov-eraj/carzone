@@ -181,14 +181,14 @@ const CarsSection = memo(() => {
 
 	const handleRentFromDetails = useCallback(() => {
 		closeModal()
-		setTimeout(() => openModal('rent', selectedCar), 100)
+		setTimeout(() => openModal('rent', selectedCar ?? undefined), 100)
 	}, [closeModal, openModal, selectedCar])
 
 	const handleBuyFromDetails = useCallback(() => {
 		closeModal()
-		setTimeout(() => openModal('buy', selectedCar), 100)
+		setTimeout(() => openModal('buy', selectedCar ?? undefined), 100)
 	}, [closeModal, openModal, selectedCar])
-
+ 
 	return (
 		<div
 			className='relative w-full h-screen overflow-hidden'
