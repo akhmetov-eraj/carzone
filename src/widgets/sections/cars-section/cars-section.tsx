@@ -33,15 +33,16 @@ const CarsSection = memo(() => {
 	const [isTransitioning, setIsTransitioning] = useState(false)
 	const [showFilter, setShowFilter] = useState(false)
 	const [showThumbnails, setShowThumbnails] = useState(false)
-	const [showUI, setShowUI] = useState(true)
-	const [showPerformance, setShowPerformance] = useState(false)
+	const [showUI] = useState(true)
+	// setShowUI
+	// const [showPerformance, setShowPerformance] = useState(false)
 
 	// Car filtering
 	const { selectedCategory, setSelectedCategory, filteredCars } = useCarFilter()
 
 	// Preload car images for better performance
 	const carImages = useMemo(
-		() => carsData.map(car => `images/futuristic-sports-car.png`),
+		() => carsData.map(() => `images/futuristic-sports-car.png`),
 		[]
 	)
 	const { isLoading } = usePreloadImages(carImages)
@@ -85,9 +86,9 @@ const CarsSection = memo(() => {
 			setIsAutoPlaying(false)
 
 			// Preload next models
-			const nextModelIndex = (newIndex + 1) % displayCars.length
-			const prevModelIndex =
-				(newIndex - 1 + displayCars.length) % displayCars.length
+			// const nextModelIndex = (newIndex + 1) % displayCars.length
+			// const prevModelIndex =
+			// 	(newIndex - 1 + displayCars.length) % displayCars.length
 
 			// Reset transition state after animation
 			setTimeout(() => setIsTransitioning(false), 600)

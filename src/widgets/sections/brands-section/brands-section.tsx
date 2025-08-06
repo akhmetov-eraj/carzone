@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 
 export function BrandsSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [direction, setDirection] = useState(1)
+  // const [direction, setDirection] = useState(1)
 
   // Автоматическое переключение каждые 3 секунды
   useEffect(() => {

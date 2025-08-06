@@ -8,7 +8,8 @@ interface CarCounterProps {
   isVisible: boolean
 }
 
-export function CarCounter({ currentSlide, totalSlides, isVisible }: CarCounterProps) {
+export function CarCounter({  isVisible }: CarCounterProps) {
+  // currentSlide, totalSlides,
   if (!isVisible) return null
 
   return (

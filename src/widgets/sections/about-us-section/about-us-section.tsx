@@ -12,8 +12,8 @@ const AboutSection = () => {
   })
 
   // About Us text
-  const aboutUsText = "About Us"
-  const aboutUsWords = aboutUsText.split(" ")
+  // const aboutUsText = "About Us"
+  // const aboutUsWords = aboutUsText.split(" ")
 
   // Main heading text
   const mainText =

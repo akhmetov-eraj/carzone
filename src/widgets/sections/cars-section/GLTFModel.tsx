@@ -14,7 +14,8 @@ interface GLTFModelProps {
 
 const GLTFModel = memo<GLTFModelProps>(({ carData, isActive }) => {
 	const groupRef = useRef<THREE.Group>(null)
-	const { getModel, setModel } = useModelCache()
+	const {setModel } = useModelCache()
+	// getModel
 	const { model, loading, error } = useGLTFLoader(carData.modelPath)
 
 	// Cache the model when loaded
