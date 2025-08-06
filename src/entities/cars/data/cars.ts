@@ -45,7 +45,7 @@ export const carsData: CarData[] = [
     modelScale: 120.0,
     modelPosition: [0, -0.3, 0],
     modelRotation: [0, 0, 0],
-    logo: '/images/brands/mercedes-benz-logo.svg.png',
+    logo: '/images/brands/mercedes-benz-logo.png',
   },
   {
     id: 'mercedes-maybach-gls-600',
@@ -91,7 +91,7 @@ export const carsData: CarData[] = [
     modelScale: 30,
     modelPosition: [0, -4, 0],
     modelRotation: [0, 0, 0],
-    logo: '/images/brands/mercedes-benz-logo.svg.png',
+    logo: '/images/brands/mercedes-benz-logo.png',
   },
   {
     id: 'bugatti-tourbillon-2026',

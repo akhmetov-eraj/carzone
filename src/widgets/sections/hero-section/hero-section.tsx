@@ -7,7 +7,7 @@ export default function HeroSection() {
 	return (
 		<section className="relative w-full h-[700px] lg:h-[680px] overflow-hidden">
 			<Image
-				src='/futuristic-sports-car.png'
+				src='/images/futuristic-sports-car.png'
 				alt='Futuristic sports car'
 				fill
 				className='object-cover z-0'
