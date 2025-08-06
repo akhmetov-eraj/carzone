@@ -21,7 +21,7 @@ export function AnimatedButton({
 }: AnimatedButtonProps) {
   const baseClasses =
     variant === "default"
-      ? "bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-black font-semibold px-8 py-3 rounded-full transition-all duration-300 shadow-lg hover:shadow-yellow-400/25 hover:shadow-2xl"
+      ? "bg-gradient-to-r bg-primary hover:from-yellow-500 hover:to-orange-500 text-black font-semibold px-8 py-3 rounded-full transition-all duration-300 shadow-lg hover:shadow-yellow-400/25 hover:shadow-2xl"
       : "border-gray-600 text-white hover:bg-white hover:text-black transition-all duration-300 rounded-full px-6 bg-transparent"
 
   return (

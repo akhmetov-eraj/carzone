@@ -40,12 +40,12 @@ export default function HeroSection() {
 
 					{/* Action Section */}
 				<div className='flex flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x-2 divide-white border-t-2 border-white mt-[60px]'>
-  <div className='w-full sm:w-1/2 p-4 flex justify-between items-center'>
-    <p className='text-center sm:text-left'>Rent a car</p>
+  <div className='w-full sm:w-1/2 p-4 flex justify-between items-center hover:text-primary'>
+    <p className='text-center sm:text-lef'>Rent a car</p>
     <span className="text-xl">→</span>
   </div>
-  <div className='w-full sm:w-1/2 p-4 flex justify-between items-center'>
-    <p className='text-center sm:text-left'>Buy a car</p>
+  <div className='w-full sm:w-1/2 p-4 flex justify-between items-center hover:text-primary'>
+    <p className='text-center sm:text-left '>Buy a car</p>
     <span className="text-xl">→</span>
   </div>
 </div>

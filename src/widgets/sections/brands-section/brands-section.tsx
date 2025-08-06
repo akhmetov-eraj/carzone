@@ -3,18 +3,50 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { BrandCard } from './brand-card'
 import { AnimatedButton } from '@/shared/ui/animated-button'
-import { useBrandHover } from '@/shared/hooks/use-brand-hover'
 import { BRANDS } from '@/entities/brands/data/brands'
-
+import { useEffect, useState } from 'react'
 
 export function BrandsSection() {
-  const { hoveredBrand, handleBrandHover } = useBrandHover()
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [direction, setDirection] = useState(1)
+
+  // Автоматическое переключение каждые 3 секунды
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => {
+        const next = (prev + 1) % BRANDS.length
+        return next
+      })
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  // Получаем видимые бренды (центральный + соседние)
+  const getVisibleBrands = () => {
+    const visible = []
+    const totalBrands = BRANDS.length
+    
+    for (let i = -2; i <= 2; i++) {
+      const index = (currentIndex + i + totalBrands) % totalBrands
+      visible.push({
+        brand: BRANDS[index],
+        position: i,
+        index: index
+      })
+    }
+    
+    return visible
+  }
+
+  const visibleBrands = getVisibleBrands()
+  const currentBrand = BRANDS[currentIndex]
 
   return (
-    <section className="py-20 px-4 md:px-8 lg:px-16 relative">
+    <section className="py-20 px-4 md:px-8 lg:px-16 relative overflow-hidden">
       {/* Background gradient effect */}
-      <div className="absolute inset-0 "></div>
-
+      <div className="absolute inset-0"></div>
+      
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
@@ -25,38 +57,26 @@ export function BrandsSection() {
         >
           <div className="flex items-center gap-4 mb-6">
             <motion.div
-              className="w-16 h-px bg-gradient-to-r from-yellow-400 to-orange-400"
+              className="w-16 h-px bg-gradient-to-r bg-primary"
               initial={{ width: 0 }}
               animate={{ width: 64 }}
               transition={{ duration: 1, delay: 0.5 }}
             />
-            <h2 className="text-sm font-medium tracking-wider text-gray-400 uppercase">
+            <h2 className="text-lg font-medium tracking-wider uppercase">
               Popular Exotic & Luxury Rental Makes
             </h2>
           </div>
-          <p className="text-gray-400 text-lg max-w-md">The finest purveyors of supercars, sports cars, and limos</p>
+          <p className="text-[#747474] text-lg max-w-md w-[25%]">
+            The finest purveyors of supercars, sports cars, and limos
+          </p>
         </motion.div>
-
-        {/* Brand Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-12">
-          {BRANDS.map((brand, index) => (
-            <BrandCard
-              key={brand.name}
-              brand={brand}
-              index={index}
-              isHovered={hoveredBrand === brand.name}
-              isAnyHovered={hoveredBrand !== null}
-              onHover={handleBrandHover}
-            />
-          ))}
-        </div>
 
         {/* Dynamic Description */}
         <div className="text-right mb-12 min-h-[100px] flex items-end justify-end">
           <div className="max-w-md">
             <AnimatePresence mode="wait">
               <motion.p
-                key={hoveredBrand || "default"}
+                key={currentBrand.name}
                 initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
@@ -64,14 +84,42 @@ export function BrandsSection() {
                   duration: 0.4,
                   ease: "easeInOut",
                 }}
-                className="text-gray-400 text-sm leading-relaxed"
+                className="text-[#747474] text-sm leading-relaxed"
               >
-                {hoveredBrand
-                  ? BRANDS.find((brand) => brand.name === hoveredBrand)?.description
-                  : "Hover over any brand to discover the unique heritage and craftsmanship that defines each luxury automotive manufacturer."}
+                {currentBrand.description}
               </motion.p>
             </AnimatePresence>
           </div>
+        </div>
+
+        {/* Brand Cards Slider */}
+        <div className="relative mb-12 h-[300px] flex items-center justify-center">
+          <div className="flex items-center justify-center gap-4">
+            {visibleBrands.map(({ brand, position, index }) => (
+              <BrandCard
+                key={`${brand.name}-${index}`}
+                brand={brand}
+                position={position}
+                isCenter={position === 0}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Progress Indicators */}
+        <div className="flex justify-center gap-2 mb-8">
+          {BRANDS.map((_, index) => (
+            <motion.div
+              key={index}
+              className={`h-1 rounded-full transition-all duration-300 ${
+                index === currentIndex ? 'bg-white w-8' : 'bg-gray-600 w-2'
+              }`}
+              animate={{
+                backgroundColor: index === currentIndex ? '#ffffff' : '#4b5563',
+                width: index === currentIndex ? 32 : 8
+              }}
+            />
+          ))}
         </div>
 
         {/* CTA Button */}
@@ -81,7 +129,19 @@ export function BrandsSection() {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="text-center"
         >
-          <AnimatedButton>Buy a Lamborghini</AnimatedButton>
+          <AnimatedButton>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={currentBrand.name}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+              >
+                Buy a {currentBrand.name}
+              </motion.span>
+            </AnimatePresence>
+          </AnimatedButton>
         </motion.div>
       </div>
     </section>

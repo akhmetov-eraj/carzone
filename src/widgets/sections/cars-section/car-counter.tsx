@@ -19,18 +19,18 @@ export function CarCounter({ currentSlide, totalSlides, isVisible }: CarCounterP
       transition={{ delay: 1 }}
     >
       <div className="flex flex-col">
-        <p className="text-sm font-light mb-1">
+        {/* <p className="text-sm font-light mb-1">
           <span className="text-3xl font-bold">{String(currentSlide + 1).padStart(2, "0")}</span>
           <span className="text-white/60"> / {String(totalSlides).padStart(2, "0")}</span>
-        </p>
-        <div className="w-16 h-0.5 bg-white/20 rounded-full overflow-hidden">
+        </p> */}
+        {/* <div className="w-16 h-0.5 bg-white/20 rounded-full overflow-hidden">
           <motion.div
             className="h-full bg-yellow-400 rounded-full"
             initial={{ width: "0%" }}
             animate={{ width: `${((currentSlide + 1) / totalSlides) * 100}%` }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           />
-        </div>
+        </div> */}
       </div>
     </motion.div>
   )

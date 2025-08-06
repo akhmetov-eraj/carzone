@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { useRef, memo } from "react"
-import { useFrame } from "@react-three/fiber"
-import type * as THREE from "three"
+import { useFrame } from '@react-three/fiber'
+import { memo, useRef } from 'react'
+import * as THREE from 'three'
 
 interface PrimitiveCarProps {
   color: string
@@ -10,73 +10,108 @@ interface PrimitiveCarProps {
 }
 
 const PrimitiveCar = memo<PrimitiveCarProps>(({ color, isActive }) => {
-  const meshRef = useRef<THREE.Group>(null)
+  const groupRef = useRef<THREE.Group>(null)
+  const wheelRefs = useRef<THREE.Mesh[]>([])
 
   useFrame((state) => {
-    if (meshRef.current && isActive) {
-      meshRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.2) * 0.05
+    if (groupRef.current && isActive) {
+      // Легкое покачивание
+      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.1
+      
+      // Вращение колес
+      wheelRefs.current.forEach((wheel) => {
+        if (wheel) {
+          wheel.rotation.x += 0.02
+        }
+      })
     }
   })
 
   return (
-    // Корневая группа теперь в позиции 0,0,0 (центр на земле)
-    <group ref={meshRef} position={[0, 0, 0]}>
-      {/* Main Car Body */}
+    <group ref={groupRef} position={[0, -0.5, 0]}>
+      {/* Основной корпус */}
       <mesh position={[0, 0.5, 0]} castShadow receiveShadow>
-        <boxGeometry args={[4.5, 1.2, 2]} />
-        <meshStandardMaterial color={color} metalness={0.9} roughness={0.1} />
+        <boxGeometry args={[4, 1, 2]} />
+        <meshStandardMaterial 
+          color={color} 
+          metalness={0.8} 
+          roughness={0.2}
+        />
       </mesh>
-
-      {/* Hood */}
-      <mesh position={[1.8, 0.8, 0]} castShadow receiveShadow>
-        <boxGeometry args={[1.2, 0.6, 1.8]} />
-        <meshStandardMaterial color={color} metalness={0.9} roughness={0.1} />
+      
+      {/* Крыша */}
+      <mesh position={[0, 1.2, -0.2]} castShadow>
+        <boxGeometry args={[3, 0.8, 1.6]} />
+        <meshStandardMaterial 
+          color={color} 
+          metalness={0.8} 
+          roughness={0.2}
+        />
       </mesh>
-
-      {/* Roof/Cabin */}
-      <mesh position={[0, 1.3, 0]} castShadow receiveShadow>
-        <boxGeometry args={[2.5, 0.8, 1.6]} />
-        <meshStandardMaterial color={color} metalness={0.9} roughness={0.1} />
-      </mesh>
-
-      {/* Windshield */}
-      <mesh position={[0.8, 1.5, 0]} castShadow receiveShadow>
-        <boxGeometry args={[1.5, 0.6, 1.4]} />
-        <meshStandardMaterial color="#1a1a1a" transparent opacity={0.3} />
-      </mesh>
-
-      {/* Wheels */}
+      
+      {/* Колеса */}
       {[
-        [-1.5, 0.15, 1.1],
-        [-1.5, 0.15, -1.1],
-        [1.5, 0.15, 1.1],
-        [1.5, 0.15, -1.1],
-      ].map((pos, i) => (
-        <group key={i} position={pos as [number, number, number]}>
-          <mesh castShadow receiveShadow rotation={[0, 0, Math.PI / 2]}>
-            <cylinderGeometry args={[0.45, 0.45, 0.3, 16]} />
-            <meshStandardMaterial color="#1a1a1a" />
-          </mesh>
-          <mesh position={[0, 0, pos[2] > 0 ? 0.16 : -0.16]} rotation={[0, 0, Math.PI / 2]}>
-            <cylinderGeometry args={[0.35, 0.35, 0.05, 16]} />
-            <meshStandardMaterial color="#e5e5e5" metalness={0.9} roughness={0.1} />
-          </mesh>
-        </group>
+        [-1.5, 0, 1.2],
+        [1.5, 0, 1.2],
+        [-1.5, 0, -1.2],
+        [1.5, 0, -1.2],
+      ].map((position, index) => (
+        <mesh
+          key={index}
+          ref={(el) => {
+            if (el) wheelRefs.current[index] = el
+          }}
+          position={position as [number, number, number]}
+          rotation={[0, 0, Math.PI / 2]}
+          castShadow
+        >
+          <cylinderGeometry args={[0.4, 0.4, 0.3, 16]} />
+          <meshStandardMaterial 
+            color="#222222" 
+            metalness={0.1} 
+            roughness={0.8}
+          />
+        </mesh>
       ))}
-
-      {/* Headlights */}
-      <mesh position={[2.3, 0.7, 0.7]} castShadow>
-        <sphereGeometry args={[0.2, 12, 12]} />
-        <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.3} />
+      
+      {/* Фары */}
+      <mesh position={[1.8, 0.3, 0.7]} castShadow>
+        <sphereGeometry args={[0.15, 8, 8]} />
+        <meshStandardMaterial 
+          color="#ffffff" 
+          emissive="#ffffff"
+          emissiveIntensity={0.2}
+        />
       </mesh>
-      <mesh position={[2.3, 0.7, -0.7]} castShadow>
-        <sphereGeometry args={[0.2, 12, 12]} />
-        <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.3} />
+      <mesh position={[1.8, 0.3, -0.7]} castShadow>
+        <sphereGeometry args={[0.15, 8, 8]} />
+        <meshStandardMaterial 
+          color="#ffffff" 
+          emissive="#ffffff"
+          emissiveIntensity={0.2}
+        />
+      </mesh>
+      
+      {/* Задние фонари */}
+      <mesh position={[-1.8, 0.3, 0.7]} castShadow>
+        <sphereGeometry args={[0.12, 8, 8]} />
+        <meshStandardMaterial 
+          color="#ff0000" 
+          emissive="#ff0000"
+          emissiveIntensity={0.1}
+        />
+      </mesh>
+      <mesh position={[-1.8, 0.3, -0.7]} castShadow>
+        <sphereGeometry args={[0.12, 8, 8]} />
+        <meshStandardMaterial 
+          color="#ff0000" 
+          emissive="#ff0000"
+          emissiveIntensity={0.1}
+        />
       </mesh>
     </group>
   )
 })
 
-PrimitiveCar.displayName = "PrimitiveCar"
-
+PrimitiveCar.displayName = 'PrimitiveCar'
 export default PrimitiveCar

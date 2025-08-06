@@ -12,8 +12,8 @@ const ArchivoSans = Archivo({
 
 
 export const metadata: Metadata = {
-	title: 'Karzone - Luxury Car Rental',
-	description: 'Karzone - Luxury Car Rental',
+	title: 'Carzone - Luxury Car Rental',
+	description: 'Carzone - Luxury Car Rental',
 }
 
 export default function RootLayout({

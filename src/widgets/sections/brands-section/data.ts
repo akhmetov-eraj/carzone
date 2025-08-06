@@ -1,7 +1,7 @@
-import { Instagram, Twitter, Facebook, Send, SnailIcon as Snapchat } from "lucide-react"
+import {LucideIcon, Instagram, Twitter, Facebook ,Send, SnailIcon as Snapchat } from "lucide-react"
 
 export interface SocialIcon {
-  icon: any
+  icon: LucideIcon
   href: string
   label: string
 }
@@ -14,4 +14,10 @@ export const SOCIAL_ICONS: SocialIcon[] = [
   { icon: Snapchat, href: "#", label: "Snapchat" },
 ]
 
-export const FOOTER_LINKS = ["Reservations", "Vehicles", "Promotions", "Businesses", "Customer Service"]
+export const FOOTER_LINKS = [
+    ['Reservations', '/reservations'],
+    ['Vehicles', '/vehicles'],
+    ['Locations', '/locations'],
+    ['Car Sales', '/car-sales'],
+    ['For Business', '/for-business'],
+  ]

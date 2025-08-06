@@ -62,7 +62,7 @@ export function Modal({ isOpen, onClose, title, children, size = "md" }: ModalPr
 
           {/* Modal */}
           <motion.div
-            className={`relative w-full ${sizeClasses[size]} max-h-[90vh] bg-gray-900 rounded-2xl shadow-2xl border border-gray-700 overflow-hidden`}
+            className={`relative w-full ${sizeClasses[size]} max-h-[90vh] bg-background rounded-2xl shadow-2xl border border-gray-700 overflow-hidden`}
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}

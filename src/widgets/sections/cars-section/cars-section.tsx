@@ -41,7 +41,7 @@ const CarsSection = memo(() => {
 
 	// Preload car images for better performance
 	const carImages = useMemo(
-		() => carsData.map(car => `/images/${car.id}.jpg`),
+		() => carsData.map(car => `images/futuristic-sports-car.png`),
 		[]
 	)
 	const { isLoading } = usePreloadImages(carImages)
