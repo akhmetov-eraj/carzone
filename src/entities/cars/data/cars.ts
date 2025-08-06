@@ -68,7 +68,7 @@ export const carsData: CarData[] = [
     modelScale: 1.1,
     modelPosition: [0, -0.4, 0],
     modelRotation: [0, 0, 0],
-    logo: '/images/brands/mercedes-benz-logo.svg.png',
+    logo: '/images/brands/mercedes-benz-logo.png',
   },
   {
     id: 'mercedes-cls-63',

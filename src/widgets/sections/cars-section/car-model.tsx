@@ -62,7 +62,7 @@ const CarModel = memo<CarModelProps>(({ carData, isActive }) => {
       {/* Простые OrbitControls без ref и target */}
       <OrbitControls {...controlsConfig} />
       
-      <Environment preset='studio' background={false} blur={0.8} />
+<Environment files="/hdr/studio_small_03_1k.hdr" background={false} blur={0.8} />
       
       {/* Освещение */}
       <ambientLight intensity={0.5} />
